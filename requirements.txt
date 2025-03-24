@@ -1,0 +1,7 @@
+go-task-bin
+typer[all]
+rich
+PyGithub
+commitizen
+cz-gitmoji
+python-dotenv

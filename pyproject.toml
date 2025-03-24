@@ -1,0 +1,15 @@
+[project]
+name = "poem-data-generator"
+version = "0.1.0"
+description = "A tools AI Agent Smarter to support human in generating creative and innovative vietnamese poetry"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "commitizen",
+    "cz-gitmoji",
+    "go-task-bin",
+    "pygithub",
+    "python-dotenv",
+    "rich",
+    "typer[all]",
+]

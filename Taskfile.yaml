@@ -1,0 +1,226 @@
+version: '3'
+
+tasks:
+  # uv-init:
+  #   desc: "Initialize uv environment"
+  #   cmds:
+  #     - set UV_ENV_FILE=pdg_env
+
+  gh-add:
+    desc: "Using gh-tools to Stage changes with git add ."
+    cmds: 
+      - echo "📌 Beginning gh-tools usage for adding files to git repo..."
+      - python main.py add 
+      - echo "📌 Finished gh-tools usage for adding files to git repo."
+
+  gh-commit:
+    desc: "Using gh-tools to commit changes with git commit"
+    vars:
+      TYPE:
+        sh: 'echo "${TYPE:-chore}"'
+        desc: "Commit type - Default: chore"
+        prompt: "🔀 Enter commit type: "
+        required: false
+      MESSAGE:
+        sh: 'echo "${MESSAGE:-}"'
+        desc: "Commit message"
+        prompt: "🔀 Enter commit message: "
+        required: true
+    
+    cmds:
+      - echo "📌 Beginning gh-tools usage for committing files to git repo..."
+      - python main.py commit "{{.MESSAGE}}" --type "{{.TYPE}}"
+      - echo "📌 Finished gh-tools usage for committing files to git repo."
+
+
+  gh-push:
+    desc: "Using gh-tools to push changes with git push"
+    vars:
+      BRANCH: "{{.BRANCH | default \"main\" }}"
+      FORCE: "{{.FORCE | default \"false\" }}"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pushing files to git repo..."
+      - python main.py push --branch {{.BRANCH}} {{if eq .FORCE "true"}} --force {{end}}
+      - echo "📌 Finished gh-tools usage for pushing files to git repo."
+
+  gh-pull:
+    desc: "Using gh-tools to pull changes with git pull"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pulling files from git repo..."
+      - python main.py pull
+      - echo "📌 Finished gh-tools usage for pulling files from git repo."
+
+  gh-status:
+    desc: "Using gh-tools to show status with git status"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for showing git status..."
+      - python main.py status
+      - echo "📌 Finished gh-tools usage for showing git status."
+
+  gh-branch:
+    desc: "Using gh-tools to create branch with git branch"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for creating git branch..."
+      - python main.py branch gh-tools
+      - echo "📌 Finished gh-tools usage for creating git branch."
+
+  gh-checkout:
+    desc: "Using gh-tools to checkout branch with git checkout"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for checking out git branch..."
+      - python main.py checkout gh-tools
+      - echo "📌 Finished gh-tools usage for checking out git branch."
+
+  gh-merge:
+    desc: "Using gh-tools to merge branch with git merge"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for merging git branch..."
+      - python main.py merge gh-tools
+      - echo "📌 Finished gh-tools usage for merging git branch."
+
+  gh-clone:
+    desc: "Using gh-tools to clone repo with git clone"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for cloning git repo..."
+      - python main.py clone https://github.com/evanshortiss/gh-tools.git
+      - echo "📌 Finished gh-tools usage for cloning git repo."
+
+  gh-delete:
+    desc: "Using gh-tools to delete branch with git branch -d"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for deleting git branch..."
+      - python main.py branch -d gh-tools
+      - echo "📌 Finished gh-tools usage for deleting git branch."
+
+  gh-delete-remote:
+    desc: "Using gh-tools to delete remote branch with git push origin --delete"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for deleting remote git branch..."
+      - python main.py push origin --delete gh-tools
+      - echo "📌 Finished gh-tools usage for deleting remote git branch."
+
+  gh-tag:
+    desc: "Using gh-tools to create tag with git tag"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for creating git tag..."
+      - python main.py tag gh-tools
+      - echo "📌 Finished gh-tools usage for creating git tag."
+
+  gh-release:
+    desc: "Using gh-tools to create release with git release"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for creating git release..."
+      - python main.py release gh-tools
+      - echo "📌 Finished gh-tools usage for creating git release."
+
+  gh-delete-tag:
+    desc: "Using gh-tools to delete tag with git tag -d"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for deleting git tag..."
+      - python main.py tag -d gh-tools
+      - echo "📌 Finished gh-tools usage for deleting git tag."
+
+  gh-delete-release:
+    desc: "Using gh-tools to delete release with git release -d"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for deleting git release..."
+      - python main.py release -d gh-tools
+      - echo "📌 Finished gh-tools usage for deleting git release."
+
+  gh-version: 
+    desc: "Using gh-tools to show version with git version"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for showing git version..."
+      - python main.py version
+      - echo "📌 Finished gh-tools usage for showing git version."
+
+  gh-help:
+    desc: "Using gh-tools to show help with git help"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for showing git help..."
+      - python main.py help
+      - echo "📌 Finished gh-tools usage for showing git help."
+
+  gh-remote:
+    desc: "Using gh-tools to show remote with git remote"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for showing git remote..."
+      - python main.py remote
+      - echo "📌 Finished gh-tools usage for showing git remote."
+
+  gh-remote-add:
+    desc: "Using gh-tools to add remote with git remote add"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for adding git remote..."
+      - python main.py remote add origin https://github.com/evanshortiss/gh-tools.git
+      - echo "📌 Finished gh-tools usage for adding git remote."
+
+  gh-remote-remove:
+    desc: "Using gh-tools to remove remote with git remote rm"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for removing git remote..."
+      - python main.py remote rm origin
+      - echo "📌 Finished gh-tools usage for removing git remote."
+
+  gh-remote-show:
+    desc: "Using gh-tools to show remote with git remote show"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for showing git remote..."
+      - python main.py remote show origin
+      - echo "📌 Finished gh-tools usage for showing git remote."
+
+  gh-remote-list:
+    desc: "Using gh-tools to list remotes with git remote -v"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for listing git remotes..."
+      - python main.py remote -v
+      - echo "📌 Finished gh-tools usage for listing git remotes."
+
+  gh-remote-update:
+    desc: "Using gh-tools to update remote with git remote update"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for updating git remote..."
+      - python main.py remote update
+      - echo "📌 Finished gh-tools usage for updating git remote."
+
+  gh-remote-prune:
+    desc: "Using gh-tools to prune remote with git remote prune"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pruning git remote..."
+      - python main.py remote prune
+      - echo "📌 Finished gh-tools usage for pruning git remote."
+
+  gh-remote-prune-origin:
+    desc: "Using gh-tools to prune origin remote with git remote prune origin"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pruning git remote..."
+      - python main.py remote prune origin
+      - echo "📌 Finished gh-tools usage for pruning git remote."
+
+  gh-remote-prune-upstream:
+    desc: "Using gh-tools to prune upstream remote with git remote prune upstream"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pruning git remote..."
+      - python main.py remote prune upstream
+      - echo "📌 Finished gh-tools usage for pruning git remote."
+
+  gh-remote-prune-all:
+    desc: "Using gh-tools to prune all remotes with git remote prune --all"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pruning git remote..."
+      - python main.py remote prune --all
+      - echo "📌 Finished gh-tools usage for pruning git remote."
+
+  gh-remote-prune-origin-all:
+    desc: "Using gh-tools to prune all origin remotes with git remote prune origin --all"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pruning git remote..."
+      - python main.py remote prune origin --all
+      - echo "📌 Finished gh-tools usage for pruning git remote."
+
+  gh-remote-prune-upstream-all:
+    desc: "Using gh-tools to prune all upstream remotes with git remote prune upstream --all"
+    cmds:
+      - echo "📌 Beginning gh-tools usage for pruning git remote..."
+      - python main.py remote prune upstream --all
+      - echo "📌 Finished gh-tools usage for pruning git remote."
